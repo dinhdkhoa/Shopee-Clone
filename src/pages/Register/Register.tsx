@@ -56,7 +56,7 @@ export default function Register() {
   })
 
   return (
-    <div className='bg-login-hero-image bg-cover bg-center bg-no-repeat'>
+    <div className='bg-login-hero-image bg-cover bg-fixed bg-center bg-no-repeat '>
       <div className='container'>
         <div className='grid grid-cols-1 py-12 lg:grid-cols-5 lg:py-32 lg:pr-10'>
           <div className='lg:col-span-2 lg:col-start-4'>

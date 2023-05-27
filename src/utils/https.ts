@@ -1,4 +1,4 @@
-import axios, { AxiosError, HttpStatusCode } from 'axios'
+import axios, { AxiosError, AxiosResponse, HttpStatusCode } from 'axios'
 import { toast } from 'react-toastify'
 
 const http = axios.create({
@@ -7,7 +7,8 @@ const http = axios.create({
   headers: { 'Content-Type': 'application/json' }
 })
 http.interceptors.response.use(
-  function (response) {
+  function (response: AxiosResponse) {
+    toast.success(response.data.message)
     return response
   },
   function (error: AxiosError) {
