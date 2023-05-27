@@ -1,4 +1,4 @@
-import type { UseFormRegister, RegisterOptions } from 'react-hook-form'
+import type { UseFormRegister } from 'react-hook-form'
 
 interface InputProps {
   type: React.HTMLInputTypeAttribute
@@ -17,6 +17,7 @@ export default function Input({
   // rules,
   type,
   className,
+
   errorMessage,
   autoComplete,
   name

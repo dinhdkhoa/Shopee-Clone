@@ -3,30 +3,57 @@ import { Link } from 'react-router-dom'
 import Input from 'src/components/Input'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Schema, schema } from 'src/utils/rules'
+import { useMutation } from '@tanstack/react-query'
+import { registerAccount } from 'src/apis/auth.api'
+import isAxiosUnprocessableError from 'src/utils/utils'
+import { ResponseApi } from 'src/types/utils.type'
 
 type FormData = Schema
+
+type FormSendToServer = Omit<FormData, 'confirm_password'>
 
 export default function Register() {
   const {
     register,
     handleSubmit,
-
+    setError,
     formState: { errors }
   } = useForm<FormData>({
     resolver: yupResolver(schema)
   })
 
-  // const rules = getRules(getValues)
+  const registerAccountMutation = useMutation({
+    mutationFn: (body: FormSendToServer) => registerAccount(body)
+  })
 
-  const onSubmit = handleSubmit(
-    (data) => {
-      // console.log(data)
-    }
-    // (data) => {
-
-    // }
-  )
-  // console.log(errors)
+  const onSubmit = handleSubmit((data) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { confirm_password, ...body } = data
+    registerAccountMutation.mutate(body, {
+      onSuccess: (data) => {
+        console.log(data)
+      },
+      onError: (data) => {
+        if (isAxiosUnprocessableError<ResponseApi<FormSendToServer>>(data)) {
+          const formError = data.response?.data.data
+          if (formError) {
+            Object.keys(formError).forEach((key) => {
+              setError(key as keyof FormSendToServer, {
+                type: 'Server',
+                message: formError[key as keyof FormSendToServer]
+              })
+            })
+          }
+          // if (formError?.email) {
+          //   setError('email', {
+          //     type: 'Server',
+          //     message: formError.email
+          //   })
+          // }
+        }
+      }
+    })
+  })
 
   return (
     <div className='bg-login-hero-image bg-cover bg-center bg-no-repeat'>
