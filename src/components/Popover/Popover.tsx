@@ -9,17 +9,26 @@ import {
   arrow,
   offset
 } from '@floating-ui/react'
-import { useState, useRef, useId, ElementType } from 'react'
+import { useState, useRef, useId } from 'react'
 
 interface props {
   children: React.ReactNode
   renderPopover: React.ReactNode
   className?: string
+  classNameForPopover?: string
   as?: React.ElementType
+  initialOpen?: boolean
 }
 
-export default function Popover({ children, renderPopover, className, as: Element = 'div' }: props) {
-  const [isOpen, setIsOpen] = useState(false)
+export default function Popover({
+  children,
+  renderPopover,
+  className,
+  as: Element = 'div',
+  initialOpen,
+  classNameForPopover
+}: props) {
+  const [isOpen, setIsOpen] = useState(initialOpen || false)
   const arrowRef = useRef(null)
   const { refs, floatingStyles, context } = useFloating({
     open: isOpen,
@@ -29,7 +38,8 @@ export default function Popover({ children, renderPopover, className, as: Elemen
       arrow({
         element: arrowRef
       })
-    ]
+    ],
+    placement: 'bottom-end'
   })
 
   const id = useId()
@@ -52,12 +62,7 @@ export default function Popover({ children, renderPopover, className, as: Elemen
       {isMounted && isOpen && (
         <FloatingPortal id={id}>
           <div style={{ ...styles }}>
-            <div
-              ref={refs.setFloating}
-              style={floatingStyles}
-              {...getFloatingProps()}
-              className='relative rounded-sm border border-gray-200 bg-white shadow-md'
-            >
+            <div ref={refs.setFloating} style={floatingStyles} {...getFloatingProps()} className={classNameForPopover}>
               <FloatingArrow
                 className='absolute border-x-transparent border-t-transparent'
                 ref={arrowRef}
