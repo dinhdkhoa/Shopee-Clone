@@ -8,6 +8,8 @@ import { ResponseApi } from 'src/types/utils.type'
 import { useMutation } from '@tanstack/react-query'
 import { login } from 'src/apis/auth.api'
 import Input from 'src/components/Input'
+import { useContext } from 'react'
+import { AppContext } from 'src/context/app.context'
 
 type FormData = Omit<Schema, 'confirm_password'>
 
@@ -23,6 +25,8 @@ export default function Login() {
     resolver: yupResolver(loginSchema)
   })
 
+  const { setIsAuthenticated } = useContext(AppContext)
+
   const loginMutation = useMutation({
     mutationFn: (body: FormData) => login(body)
   })
@@ -32,7 +36,7 @@ export default function Login() {
     const { ...body } = data
     loginMutation.mutate(body, {
       onSuccess: (data) => {
-        console.log('Đăng nhập thành công')
+        setIsAuthenticated(true)
       },
       onError: (data) => {
         if (isAxiosUnprocessableError<ResponseApi<FormData>>(data)) {

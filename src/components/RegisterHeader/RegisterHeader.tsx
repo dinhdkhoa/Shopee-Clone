@@ -1,10 +1,12 @@
-import { Link } from 'react-router-dom'
+import { Link, useMatch } from 'react-router-dom'
 
 export default function RegisterHeader() {
+  const registerMatch = Boolean(useMatch('/register'))
+
   return (
     <header className='py-5'>
       <div className='container'>
-        <nav className='flex items-center justify-between'>
+        <nav className='flex items-center'>
           <Link to='/'>
             <svg viewBox='0 0 192 65' className='h-8 fill-orange lg:h-11'>
               <g fillRule='evenodd'>
@@ -14,7 +16,7 @@ export default function RegisterHeader() {
           </Link>
 
           <div className='text-orangeShopee ml-5 rounded-md px-2 py-1 text-lg transition duration-200 lg:text-xl'>
-            Đăng nhập
+            {registerMatch ? 'Đăng Ký' : 'Đăng Nhập'}
           </div>
         </nav>
       </div>

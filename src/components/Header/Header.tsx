@@ -1,7 +1,24 @@
 import { Link } from 'react-router-dom'
 import Popover from '../Popover'
+import { useMutation } from '@tanstack/react-query'
+import { logout } from 'src/apis/auth.api'
+import { useContext } from 'react'
+import { AppContext } from 'src/context/app.context'
 
 export default function Header() {
+  const { isAuthenticated, setIsAuthenticated } = useContext(AppContext)
+
+  const logoutMutation = useMutation({
+    mutationFn: () => logout(),
+    onSuccess: () => {
+      setIsAuthenticated(false)
+    }
+  })
+
+  const handleClick = () => {
+    logoutMutation.mutate()
+  }
+
   return (
     <div className='bg-[linear-gradient(-180deg,#f53d2d,#f63)] pb-5 pt-2 text-white'>
       <div className='container'>
@@ -47,32 +64,48 @@ export default function Header() {
               />
             </svg>
           </Popover>
-          <Popover
-            classNameForPopover='shadow-md relative rounded-sm border border-gray-200 bg-white'
-            className='ml-6 flex cursor-pointer items-center py-1 hover:text-gray-300'
-            renderPopover={
-              <div>
-                <Link to='/' className='block bg-white px-3 py-2 hover:bg-slate-100 hover:text-cyan-500'>
-                  Tài khoản của tôi
-                </Link>
-                <Link to='/' className='block bg-white px-3 py-2 hover:bg-slate-100 hover:text-cyan-500'>
-                  Đơn Mua
-                </Link>
-                <button className='w-100 block w-full bg-white px-3 py-2 text-left hover:bg-slate-100 hover:text-cyan-500'>
-                  Đăng Xuất
-                </button>
+          {isAuthenticated && (
+            <Popover
+              classNameForPopover='shadow-md relative rounded-sm border border-gray-200 bg-white'
+              className='ml-6 flex cursor-pointer items-center py-1 hover:text-gray-300'
+              renderPopover={
+                <div>
+                  <Link to='/profile' className='block bg-white px-3 py-2 hover:bg-slate-100 hover:text-cyan-500'>
+                    Tài khoản của tôi
+                  </Link>
+                  <Link to='/' className='block bg-white px-3 py-2 hover:bg-slate-100 hover:text-cyan-500'>
+                    Đơn Mua
+                  </Link>
+                  <button
+                    onClick={handleClick}
+                    className='w-100 block w-full bg-white px-3 py-2 text-left hover:bg-slate-100 hover:text-cyan-500'
+                  >
+                    Đăng Xuất
+                  </button>
+                </div>
+              }
+            >
+              <div className='mr-2 h-6 w-6 flex-shrink-0'>
+                <img
+                  src='https://ae01.alicdn.com/kf/Sbffd92d5995944e98d13472e313fdf77G/WK-KBDfans-Tofu60-2-0-WK-layout-Hot-swap-Mechanical-Keyboard-Kit.jpg_50x50.jpg_.webp'
+                  alt='avatar'
+                  className='h-full w-full rounded-full object-cover'
+                />
               </div>
-            }
-          >
-            <div className='mr-2 h-6 w-6 flex-shrink-0'>
-              <img
-                src='https://ae01.alicdn.com/kf/Sbffd92d5995944e98d13472e313fdf77G/WK-KBDfans-Tofu60-2-0-WK-layout-Hot-swap-Mechanical-Keyboard-Kit.jpg_50x50.jpg_.webp'
-                alt='avatar'
-                className='h-full w-full rounded-full object-cover'
-              />
+              <div>user42</div>
+            </Popover>
+          )}
+          {!isAuthenticated && (
+            <div className='flex items-center'>
+              <Link to='/register' className='mx-3 capitalize hover:text-white/70'>
+                Đăng Ký
+              </Link>
+              <div className='h-4 border-r-[1px] border-r-white/40'></div>
+              <Link to='/login' className='mx-3 capitalize hover:text-white/70'>
+                Đăng Nhập
+              </Link>
             </div>
-            <div>user42</div>
-          </Popover>
+          )}
         </div>
         <div className='mt-4 grid grid-cols-12 items-end gap-4'>
           <Link to='/' className='col-span-2'>
@@ -111,7 +144,6 @@ export default function Header() {
           <div className='cols-span-1 justify-self-start'>
             <Popover
               classNameForPopover='bg-white shadow-md relative rounded-sm border border-gray-200 max-w-[400px] text-sm'
-              initialOpen
               className='ml-6 flex cursor-pointer items-center py-1 hover:text-gray-300'
               renderPopover={
                 <div className='p-2'>
