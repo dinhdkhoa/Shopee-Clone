@@ -6,7 +6,9 @@ import { Schema, schema } from 'src/utils/rules'
 import { useMutation } from '@tanstack/react-query'
 import { registerAccount } from 'src/apis/auth.api'
 import isAxiosUnprocessableError from 'src/utils/utils'
-import { ResponseApi } from 'src/types/utils.type'
+import { ErrorResponse } from 'src/types/utils.type'
+import Button from 'src/components/Button'
+import { path } from 'src/constant/path'
 
 type FormData = Schema
 
@@ -34,7 +36,7 @@ export default function Register() {
         console.log(data)
       },
       onError: (data) => {
-        if (isAxiosUnprocessableError<ResponseApi<FormSendToServer>>(data)) {
+        if (isAxiosUnprocessableError<ErrorResponse<FormSendToServer>>(data)) {
           const formError = data.response?.data.data
           if (formError) {
             Object.keys(formError).forEach((key) => {
@@ -94,16 +96,18 @@ export default function Register() {
               />
 
               <div className='mt-2'>
-                <button
+                <Button
+                  isLoading={registerAccountMutation.isLoading}
+                  disabled={registerAccountMutation.isLoading}
                   type='submit'
                   className='flex  w-full items-center justify-center bg-red-500 px-2 py-4 text-sm uppercase text-white hover:bg-red-600'
                 >
                   Đăng Nhập
-                </button>
+                </Button>
               </div>
               <div className='mt-8 flex items-center justify-center'>
                 <span className='text-gray-400'>Bạn đã có tài khoản?</span>
-                <Link className='ml-1 text-red-400' to='/login'>
+                <Link className='ml-1 text-red-400' to={path.login}>
                   Đăng Nhập
                 </Link>
               </div>

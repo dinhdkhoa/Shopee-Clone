@@ -1,6 +1,8 @@
 import axios, { AxiosInstance, AxiosError, HttpStatusCode } from 'axios'
-import { getTokenFromLS, removeAccessToken, saveTokentoLS } from './auth'
+import { getTokenFromLS, removeAccessToken, saveProfiletoLS, saveTokentoLS } from './auth'
 import { toast } from 'react-toastify'
+import { path } from 'src/constant/path'
+import { AuthResponse } from 'src/types/auth.types'
 
 // const http = axios.create({
 //   baseURL: 'https://api-ecom.duthanhduoc.com/',
@@ -23,10 +25,12 @@ class Http {
       this.instance.interceptors.response.use(
         (response) => {
           const { url } = response.config
-          if (url === '/login') {
-            this.accessToken = response.data.data.access_token
+          if (url === path.login) {
+            const { data } = response.data as AuthResponse
+            this.accessToken = data.access_token
             saveTokentoLS(this.accessToken)
-          } else if (url === '/logout') {
+            saveProfiletoLS(data.user)
+          } else if (url === path.logout) {
             removeAccessToken()
           }
           return response
