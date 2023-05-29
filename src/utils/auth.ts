@@ -16,5 +16,5 @@ export const getProfileFromLS = () => {
 }
 
 export const saveProfiletoLS = (profile: User) => {
-  localStorage.setItem('access_token', JSON.stringify(profile))
+  localStorage.setItem('profile', JSON.stringify(profile))
 }
