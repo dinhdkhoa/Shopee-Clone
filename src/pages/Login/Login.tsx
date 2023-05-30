@@ -6,12 +6,12 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import isAxiosUnprocessableError from 'src/utils/utils'
 import { ErrorResponse } from 'src/types/utils.type'
 import { useMutation } from '@tanstack/react-query'
-import { login } from 'src/apis/auth.api'
 import Input from 'src/components/Input'
 import { useContext } from 'react'
 import { AppContext } from 'src/context/app.context'
 import Button from 'src/components/Button'
 import { path } from 'src/constant/path'
+import authApi from 'src/apis/auth.api'
 
 type FormData = Omit<Schema, 'confirm_password'>
 
@@ -30,7 +30,7 @@ export default function Login() {
   const { setIsAuthenticated, setProfile } = useContext(AppContext)
 
   const loginMutation = useMutation({
-    mutationFn: (body: FormData) => login(body)
+    mutationFn: (body: FormData) => authApi.login(body)
   })
 
   const onSubmit = handleSubmit((data) => {

@@ -4,11 +4,11 @@ import Input from 'src/components/Input'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Schema, schema } from 'src/utils/rules'
 import { useMutation } from '@tanstack/react-query'
-import { registerAccount } from 'src/apis/auth.api'
 import isAxiosUnprocessableError from 'src/utils/utils'
 import { ErrorResponse } from 'src/types/utils.type'
 import Button from 'src/components/Button'
 import { path } from 'src/constant/path'
+import authApi from 'src/apis/auth.api'
 
 type FormData = Schema
 
@@ -25,7 +25,7 @@ export default function Register() {
   })
 
   const registerAccountMutation = useMutation({
-    mutationFn: (body: FormSendToServer) => registerAccount(body)
+    mutationFn: (body: FormSendToServer) => authApi.registerAccount(body)
   })
 
   const onSubmit = handleSubmit((data) => {
