@@ -21,7 +21,7 @@ export default function Input({
   autoComplete,
   name
 }: InputProps) {
-  const registerResult = register && name ? register(name, rules) : {} // đảm bảo ts
+  const registerResult = register && name ? register(name, rules) : {} // đảm bảo ts vì nếu rỗng thì trả về object rỗng
   return (
     <div className={className}>
       <input
