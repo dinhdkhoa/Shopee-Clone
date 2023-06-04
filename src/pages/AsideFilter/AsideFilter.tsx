@@ -1,19 +1,51 @@
-import { Link, createSearchParams } from 'react-router-dom'
+import { Link, createSearchParams, useNavigate } from 'react-router-dom'
 import Button from 'src/components/Button'
-import Input from 'src/components/Input'
 import { path } from 'src/constant/path'
 import { QueryConfig } from '../ProductList/ProductList'
 import { CategoryType } from 'src/types/category.type'
 import classNames from 'classnames'
+import { useForm, Controller } from 'react-hook-form'
+import InputNumber from 'src/components/InputNumber'
+import { schema, Schema } from 'src/utils/rules'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { NoUndefinedField } from 'src/types/utils.type'
 
 interface Props {
   queryConfig: QueryConfig
   categories: CategoryType[]
 }
 
-export default function AsideFilter(prop: Props) {
-  const { categories, queryConfig } = prop
+type FormData = NoUndefinedField<Pick<Schema, 'price_max' | 'price_min'>>
+
+const priceSchema = schema.pick(['price_max', 'price_min'])
+
+export default function AsideFilter({ categories, queryConfig }: Props) {
   const category = queryConfig.category
+  const navigate = useNavigate()
+  const {
+    control,
+    handleSubmit,
+    trigger,
+    formState: { errors }
+  } = useForm<FormData>({
+    defaultValues: {
+      price_max: '',
+      price_min: ''
+    },
+    resolver: yupResolver(priceSchema),
+    shouldFocusError: false
+  })
+
+  const onSubmit = handleSubmit((data) => {
+    navigate({
+      pathname: path.home,
+      search: createSearchParams({
+        ...queryConfig,
+        price_max: data.price_max,
+        price_min: data.price_min
+      }).toString()
+    })
+  })
 
   return (
     <div className='py-4'>
@@ -90,28 +122,53 @@ export default function AsideFilter(prop: Props) {
       <div className='my-4 h-[1px] bg-gray-300'></div>
       <div className='my-5'>
         <div>Khoản giá</div>
-        <form className='mt-2'>
+        <form className='mt-2' onSubmit={onSubmit}>
           <div className='flex items-center'>
-            <Input
-              type='text'
-              className='row'
-              placeholder='₫ TỪ'
-              name='from'
-              clasNameInput='p-1 w-full rounded-sm border border-gray-300 p-3 outline-none focus:border-gray-500 focus:shadow-sm'
+            <Controller
+              control={control}
+              name='price_min'
+              render={({ field }) => (
+                <InputNumber
+                  ref={field.ref}
+                  type='text'
+                  className='row'
+                  classNameError='hidden'
+                  placeholder='₫ TỪ'
+                  onChange={(event) => {
+                    field.onChange(event)
+                    trigger('price_max')
+                  }}
+                  value={field.value}
+                  clasNameInput='p-1 w-full rounded-sm border border-gray-300 p-3 outline-none focus:border-gray-500 focus:shadow-sm'
+                />
+              )}
             />
             <div className='mx-2 mt-2 shrink-0'>-</div>
-            <Input
-              type='text'
-              className='row'
-              placeholder='₫ ĐẾN'
-              name='to'
-              clasNameInput='p-1 w-full rounded-sm border border-gray-300 p-3 outline-none focus:border-gray-500 focus:shadow-sm'
+            <Controller
+              control={control}
+              name='price_max'
+              render={({ field }) => (
+                <InputNumber
+                  ref={field.ref}
+                  classNameError='hidden'
+                  type='text'
+                  className='row'
+                  placeholder='₫ ĐẾN'
+                  onChange={(event) => {
+                    field.onChange(event)
+                    trigger('price_min')
+                  }}
+                  value={field.value}
+                  clasNameInput='p-1 w-full rounded-sm border border-gray-300 p-3 outline-none focus:border-gray-500 focus:shadow-sm'
+                />
+              )}
             />
           </div>
+          <div className='mt-1 min-h-[1.25rem] text-center text-sm text-red-600'>{errors.price_min?.message}</div>
+          <Button className='flex w-full items-center justify-center bg-orange p-2 text-sm uppercase text-white hover:bg-orange/80'>
+            Áp dụng
+          </Button>
         </form>
-        <Button className='flex w-full items-center justify-center bg-orange p-2 text-sm uppercase text-white hover:bg-orange/80'>
-          Áp dụng
-        </Button>
       </div>
       <div className='my-4 h-[1px] bg-gray-300' />
       <div className='text-sm'>Đánh giá</div>

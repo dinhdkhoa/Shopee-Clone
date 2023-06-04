@@ -10,26 +10,22 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export default function Input({
-  placeholder,
   register,
   rules,
-  type,
+  name,
   className,
   classNameError = 'mt-1 min-h-[1.25rem] text-sm text-red-600',
   clasNameInput = 'w-full rounded-sm border border-gray-300 p-3 outline-none focus:border-gray-500 focus:shadow-sm',
   errorMessage,
-  autoComplete,
-  name
+  ...rest
 }: InputProps) {
-  const registerResult = register && name ? register(name, rules) : {} // đảm bảo ts vì nếu rỗng thì trả về object rỗng
+  const registerResult = register && name ? register(name, rules) : {} // đảm bảo ts vì nếu rỗng thì trả về object rỗng hooặc null
   return (
     <div className={className}>
       <input
-        type={type}
         className={clasNameInput}
-        placeholder={placeholder}
+        {...rest}
         {...registerResult} //xử lí react-hook-form
-        autoComplete={autoComplete}
       />
       <div className={classNameError}>{errorMessage}</div>
     </div>

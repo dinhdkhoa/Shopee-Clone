@@ -10,9 +10,9 @@ import Button from 'src/components/Button'
 import { path } from 'src/constant/path'
 import authApi from 'src/apis/auth.api'
 
-type FormData = Schema
+type FormData = Pick<Schema, 'email' | 'password' | 'confirm_password'>
 
-type FormSendToServer = Omit<FormData, 'confirm_password'>
+const registerSchema = schema.pick(['email', 'password', 'confirm_password'])
 
 export default function Register() {
   const {
@@ -21,11 +21,11 @@ export default function Register() {
     setError,
     formState: { errors }
   } = useForm<FormData>({
-    resolver: yupResolver(schema)
+    resolver: yupResolver(registerSchema)
   })
 
   const registerAccountMutation = useMutation({
-    mutationFn: (body: FormSendToServer) => authApi.registerAccount(body)
+    mutationFn: (body: Omit<FormData, 'confirm_password'>) => authApi.registerAccount(body)
   })
 
   const onSubmit = handleSubmit((data) => {
@@ -36,13 +36,13 @@ export default function Register() {
         console.log(data)
       },
       onError: (data) => {
-        if (isAxiosUnprocessableError<ErrorResponse<FormSendToServer>>(data)) {
+        if (isAxiosUnprocessableError<ErrorResponse<FormData>>(data)) {
           const formError = data.response?.data.data
           if (formError) {
             Object.keys(formError).forEach((key) => {
-              setError(key as keyof FormSendToServer, {
+              setError(key as keyof FormData, {
                 type: 'Server',
-                message: formError[key as keyof FormSendToServer]
+                message: formError[key as keyof FormData]
               })
             })
           }
