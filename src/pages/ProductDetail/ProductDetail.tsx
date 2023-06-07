@@ -3,26 +3,27 @@ import { useParams } from 'react-router-dom'
 import productApi from 'src/apis/product.api'
 import ProductRating from '../ProductList/components/ProductRating'
 import { formatCurrency, formatNumberToSocialStyle, getIdFromNameId, rateSale } from 'src/utils/utils'
-import InputNumber from 'src/components/InputNumber'
 import DOMPurify from 'dompurify'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Product as ProductType, ProductListConfig } from 'src/types/product.type'
 import Product from '../ProductList/components/Product'
+import QuantityController from 'src/components/QuantityController'
 
 export default function ProductDetail() {
   const { nameId } = useParams()
   const imageRef = useRef<HTMLImageElement>(null)
   const id = getIdFromNameId(nameId as string)
 
+  const [buyCount, setBuyCount] = useState(1)
+  const [currentIndexImages, setCurrentIndexImages] = useState([0, 5])
+  const [activeImg, setActiveImg] = useState('')
+
   const { data } = useQuery({
     queryKey: ['product', id],
     queryFn: () => productApi.getProductDetailed(id as string)
   })
-
-  const [currentIndexImages, setCurrentIndexImages] = useState([0, 5])
-  const [activeImg, setActiveImg] = useState('')
-
   const product = data?.data.data
+
   const currentImages = useMemo(
     () => (product ? product.images.slice(...currentIndexImages) : []),
     [product, currentIndexImages]
@@ -35,6 +36,7 @@ export default function ProductDetail() {
   }, [product])
 
   const queryConfig: ProductListConfig = { limit: '20', page: '1', category: product?.category._id }
+
   const { data: productsData } = useQuery({
     queryKey: ['products', queryConfig],
     queryFn: () => {
@@ -59,6 +61,10 @@ export default function ProductDetail() {
 
   const hoverImg = (img: string) => {
     setActiveImg(img)
+  }
+
+  const handleBuyCount = (value: number) => {
+    setBuyCount(value)
   }
 
   const handleZoom = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -177,38 +183,13 @@ export default function ProductDetail() {
               </div>
               <div className='mt-8 flex items-center'>
                 <div className='capitalize text-gray-500'>Số lượng</div>
-                <div className='ml-10 flex items-center'>
-                  <button className='flex h-8 w-8 items-center justify-center rounded-l-sm border border-gray-300 text-gray-600'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='h-4 w-4'
-                    >
-                      <path strokeLinecap='round' strokeLinejoin='round' d='M19.5 12h-15' />
-                    </svg>
-                  </button>
-                  <InputNumber
-                    value={1}
-                    className=''
-                    classNameError='hidden'
-                    clasNameInput='h-8 w-14 border-t border-b border-gray-300 p-1 text-center outline-none'
-                  />
-                  <button className='flex h-8 w-8 items-center justify-center rounded-r-sm border border-gray-300 text-gray-600'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='h-4 w-4'
-                    >
-                      <path strokeLinecap='round' strokeLinejoin='round' d='M12 4.5v15m7.5-7.5h-15' />
-                    </svg>
-                  </button>
-                </div>
+                <QuantityController
+                  onType={handleBuyCount}
+                  onIncrease={handleBuyCount}
+                  onDecrease={handleBuyCount}
+                  max={product.quantity}
+                  value={buyCount}
+                />
                 <div className='ml-6 text-sm text-gray-500'>{product.quantity} sản phẩm có sẵn</div>
               </div>
               <div className='mt-8 flex items-center'>

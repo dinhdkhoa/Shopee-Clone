@@ -1,13 +1,11 @@
 import { createSearchParams, useNavigate } from 'react-router-dom'
-import { QueryConfig } from '../../ProductList'
+
 import { path } from 'src/constant/path'
+import useQueryConfig from 'src/hooks/useQueryConfig'
 
-interface Props {
-  queryConfig: QueryConfig
-}
-
-export default function RatingStars({ queryConfig }: Props) {
+export default function RatingStars() {
   const navigate = useNavigate()
+  const queryConfig = useQueryConfig()
 
   const handleFilterStar = (rating: number) => {
     navigate({
