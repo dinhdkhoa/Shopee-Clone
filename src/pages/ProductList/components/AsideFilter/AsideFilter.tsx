@@ -183,7 +183,7 @@ export default function AsideFilter({ categories, queryConfig }: Props) {
       </div>
       <div className='my-4 h-[1px] bg-gray-300' />
       <div className='text-sm'>Đánh giá</div>
-      <RatingStars queryConfig={queryConfig} />
+      <RatingStars />
       <div className='my-4 h-[1px] bg-gray-300' />
       <Button
         onClick={removeAllFilter}

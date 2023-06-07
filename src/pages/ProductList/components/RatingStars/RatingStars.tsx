@@ -1,5 +1,4 @@
 import { createSearchParams, useNavigate } from 'react-router-dom'
-
 import { path } from 'src/constant/path'
 import useQueryConfig from 'src/hooks/useQueryConfig'
 
