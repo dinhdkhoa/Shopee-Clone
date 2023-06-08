@@ -11,7 +11,7 @@ module.exports = {
       },
       backgroundImage: {
         'login-hero-image':
-          'url(https://scontent.fxds1-1.fna.fbcdn.net/v/t39.30808-6/282651200_6657262451196851_8429889999843178246_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=e3f864&_nc_ohc=bjgAz7eTJMsAX9q4gB_&_nc_ht=scontent.fxds1-1.fna&oh=00_AfACtAEJKQopgAYUOVLq8KTt7g6BR5IglxAv4wquhLwfPg&oe=647BF007)'
+          'url(https://scontent.fxds1-1.fna.fbcdn.net/v/t39.30808-6/343327147_750946743098116_2677547945257916229_n.png?_nc_cat=106&ccb=1-7&_nc_sid=e3f864&_nc_ohc=IzKJjVMIQ54AX8w5bGw&_nc_ht=scontent.fxds1-1.fna&oh=00_AfBBASfr_k_Oba7V8FeONlxdQixRhETnOKDc8GGXuFEN9A&oe=64862E66)'
       }
     }
   },

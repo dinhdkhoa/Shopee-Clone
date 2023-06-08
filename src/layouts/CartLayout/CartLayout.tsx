@@ -1,14 +1,14 @@
+import CartHeader from 'src/components/CartHeader'
 import Footer from 'src/components/Footer'
-import RegisterHeader from 'src/components/RegisterHeader'
 
 interface props {
   children?: React.ReactNode
 }
 
-export default function RegisterLayout({ children }: props) {
+export default function CartLayout({ children }: props) {
   return (
     <>
-      <RegisterHeader />
+      <CartHeader />
       {children}
       <Footer />
     </>

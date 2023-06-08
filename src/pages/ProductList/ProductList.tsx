@@ -24,7 +24,8 @@ export default function ProductList() {
     queryKey: ['categories'],
     queryFn: () => {
       return categoryApi.getCategories()
-    }
+    },
+    keepPreviousData: true
   })
 
   return (
