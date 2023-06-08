@@ -10,7 +10,8 @@ import { AppProvider } from './context/app.context.tsx'
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: false // default: true
+      refetchOnWindowFocus: false, // default: true,
+      retry: 0
     }
   }
 })

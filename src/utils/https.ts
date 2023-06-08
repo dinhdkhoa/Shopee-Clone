@@ -36,8 +36,10 @@ class Http {
           return response
         },
         function (error: AxiosError) {
+          if (error.response?.status === HttpStatusCode.Unauthorized) {
+            removeAccessToken()
+          }
           if (error.response?.status !== HttpStatusCode.UnprocessableEntity) {
-            console.log(error)
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const data: any | undefined = error.response?.data
             const message = data.message || error.message
