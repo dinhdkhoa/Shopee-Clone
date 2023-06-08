@@ -21,7 +21,7 @@ const purchasesApi = {
     })
   },
   buyProducts: (body: { product_id: string; buy_count: number }[]) => {
-    return http.put<SuccessResponse<Purchase[]>>(`${URL}/buy-products`, body)
+    return http.post<SuccessResponse<Purchase[]>>(`${URL}/buy-products`, body)
   }
 }
 
