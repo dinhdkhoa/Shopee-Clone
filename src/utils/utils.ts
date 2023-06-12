@@ -32,3 +32,8 @@ export const getIdFromNameId = (nameId: string) => {
   const arr = nameId.split('-i-')
   return arr[arr.length - 1]
 }
+
+const defaultAvatar =
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA83Aa64pQYUL2GNSPYANXnMXqhGTGM4_G6y8xATpHxNa4e9zuv4cYAOJstnU_3EMAykM&usqp=CAU'
+export const getAvatarURL = (avatarName?: string) =>
+  avatarName ? `https://api-ecom.duthanhduoc.com/images/${avatarName}` : defaultAvatar

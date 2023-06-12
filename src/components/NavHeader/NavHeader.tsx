@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import authApi from 'src/apis/auth.api'
 import { purchasesStatus } from 'src/constant/purchaseStatus'
+import { getAvatarURL } from 'src/utils/utils'
 
 export default function NavHeader() {
   const queryClient = useQueryClient()
@@ -85,14 +86,7 @@ export default function NavHeader() {
           }
         >
           <div className='mr-2 h-6 w-6 flex-shrink-0'>
-            <img
-              src={
-                profile?.avatar ||
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA83Aa64pQYUL2GNSPYANXnMXqhGTGM4_G6y8xATpHxNa4e9zuv4cYAOJstnU_3EMAykM&usqp=CAU'
-              }
-              alt='avatar'
-              className='h-full w-full rounded-full object-cover'
-            />
+            <img src={getAvatarURL(profile?.avatar)} alt='avatar' className='h-full w-full rounded-full object-cover' />
           </div>
           <div>{profile?.name || profile?.email}</div>
         </Popover>

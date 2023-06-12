@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { path } from 'src/constant/path'
 import { useAppContext } from 'src/context/app.context'
+import { getAvatarURL } from 'src/utils/utils'
 
 export default function UserSideNav() {
   const { profile } = useAppContext()
@@ -8,14 +9,10 @@ export default function UserSideNav() {
     <div>
       <div className='flex items-center border-b border-b-gray-200 py-4'>
         <Link to={path.profile} className='h-12 w-12 flex-shrink-0 overflow-hidden rounded-full border border-black/10'>
-          <img
-            src='https://cf.shopee.vn/file/d04ea22afab6e6d250a370d7ccc2e675_tn'
-            alt=''
-            className='h-full w-full object-cover'
-          />
+          <img src={getAvatarURL(profile?.avatar)} alt='' className='h-full w-full object-cover' />
         </Link>
         <div className='flex-grow pl-4'>
-          <div className='mb-1 truncate font-semibold text-gray-600'>{profile?.email}</div>
+          <div className='mb-1 truncate font-semibold text-gray-600'>{profile?.name || profile?.email}</div>
           <Link to={path.profile} className='flex items-center capitalize text-gray-500'>
             <svg
               width={12}
