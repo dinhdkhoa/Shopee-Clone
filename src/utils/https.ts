@@ -2,7 +2,7 @@ import axios, { AxiosInstance, AxiosError, HttpStatusCode } from 'axios'
 import { getTokenFromLS, removeAccessToken, saveProfiletoLS, saveTokentoLS } from './auth'
 import { toast } from 'react-toastify'
 import { path } from 'src/constant/path'
-import { AuthResponse } from 'src/types/auth.types'
+import { AuthResponse, UserResponse } from 'src/types/auth.types'
 
 // const http = axios.create({
 //   baseURL: 'https://api-ecom.duthanhduoc.com/',
@@ -32,6 +32,10 @@ class Http {
             saveProfiletoLS(data.user)
           } else if (url === path.logout) {
             removeAccessToken()
+            // } else if (url === '/me' || url === '/user/upload-avatar' || url === '/user' || url === '/user/profile') {
+            //   const { data } = response.data as UserResponse
+            //   console.log('http ', data.name)
+            //   saveProfiletoLS(data)
           }
           return response
         },

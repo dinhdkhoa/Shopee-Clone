@@ -6,15 +6,14 @@ import purchasesApi from 'src/apis/purchase.api'
 import noproduct from 'src/assets/images/no-product.png'
 import { formatCurrency } from 'src/utils/utils'
 import { useQuery } from '@tanstack/react-query'
-import { AppContext } from 'src/context/app.context'
-import { useContext } from 'react'
+import { useAppContext } from 'src/context/app.context'
 import NavHeader from '../NavHeader'
 import useSearchProducts from 'src/hooks/useSearchProducts'
 
 const MAX_PRODUCTS_IN_CART = 5
 
 export default function Header() {
-  const { isAuthenticated } = useContext(AppContext)
+  const { isAuthenticated } = useAppContext()
   const { register, onSearch } = useSearchProducts()
 
   const { data: purchasesInCartData } = useQuery({

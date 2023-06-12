@@ -1,12 +1,12 @@
-import { useContext, useEffect } from 'react'
+import { useEffect } from 'react'
 import useRouteElements from './useRouteElements'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { AppContext } from './context/app.context'
+import { useAppContext } from './context/app.context'
 import { LocalStorageEventTarget } from './utils/auth'
 
 function App() {
-  const { reset } = useContext(AppContext)
+  const { reset } = useAppContext()
   useEffect(() => {
     LocalStorageEventTarget.addEventListener('clearLS', reset)
     return () => {
@@ -17,7 +17,7 @@ function App() {
   return (
     <>
       {routeElements}
-      <ToastContainer />
+      <ToastContainer autoClose={1500} />
     </>
   )
 }

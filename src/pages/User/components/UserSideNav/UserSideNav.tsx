@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom'
 import { path } from 'src/constant/path'
-import { User } from 'src/types/user.types'
+import { useAppContext } from 'src/context/app.context'
 
-export default function UserSideNav({ profile }: { profile: User }) {
+export default function UserSideNav() {
+  const { profile } = useAppContext()
   return (
     <div>
       <div className='flex items-center border-b border-b-gray-200 py-4'>
@@ -14,7 +15,7 @@ export default function UserSideNav({ profile }: { profile: User }) {
           />
         </Link>
         <div className='flex-grow pl-4'>
-          <div className='mb-1 truncate font-semibold text-gray-600'>{profile.email}</div>
+          <div className='mb-1 truncate font-semibold text-gray-600'>{profile?.email}</div>
           <Link to={path.profile} className='flex items-center capitalize text-gray-500'>
             <svg
               width={12}

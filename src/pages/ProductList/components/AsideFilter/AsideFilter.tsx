@@ -150,7 +150,7 @@ export default function AsideFilter({ categories, queryConfig }: Props) {
                     trigger('price_max')
                   }}
                   value={field.value}
-                  clasNameInput='p-1 w-full rounded-sm border border-gray-300 p-3 outline-none focus:border-gray-500 focus:shadow-sm'
+                  classNameInput='p-1 w-full rounded-sm border border-gray-300 p-3 outline-none focus:border-gray-500 focus:shadow-sm'
                 />
               )}
             />
@@ -170,7 +170,7 @@ export default function AsideFilter({ categories, queryConfig }: Props) {
                     trigger('price_min')
                   }}
                   value={field.value}
-                  clasNameInput='p-1 w-full rounded-sm border border-gray-300 p-3 outline-none focus:border-gray-500 focus:shadow-sm'
+                  classNameInput='p-1 w-full rounded-sm border border-gray-300 p-3 outline-none focus:border-gray-500 focus:shadow-sm'
                 />
               )}
             />

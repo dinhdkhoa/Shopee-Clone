@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 import { Purchase } from 'src/types/purchase.types'
 import { User } from 'src/types/user.types'
 import { getProfileFromLS, getTokenFromLS } from 'src/utils/auth'
@@ -27,7 +27,8 @@ const initialAppContext: AppContext = {
   reset: () => null
 }
 
-export const AppContext = createContext<AppContext>(initialAppContext)
+const AppContext = createContext<AppContext>(initialAppContext)
+export const useAppContext = () => useContext(AppContext)
 
 export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [extendedPurchases, setExtendedPurchases] = useState<ExtendedPurchase[]>([])

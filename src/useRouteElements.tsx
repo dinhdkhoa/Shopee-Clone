@@ -5,8 +5,7 @@ import Register from './pages/Register'
 import RegisterLayout from './layouts/RegisterLayout'
 import MainLayout from './layouts/MainLayout'
 import Profile from './pages/User/pages/Profile'
-import { useContext } from 'react'
-import { AppContext } from './context/app.context'
+import { useAppContext } from './context/app.context'
 import { path } from './constant/path'
 import ProductDetail from './pages/ProductDetail'
 import Cart from './pages/Cart'
@@ -16,11 +15,11 @@ import ChangePassword from './pages/User/pages/ChangePassword'
 import OrderHistory from './pages/User/pages/OrderHistory'
 
 function ProtectedRoute() {
-  const { isAuthenticated } = useContext(AppContext)
+  const { isAuthenticated } = useAppContext()
   return isAuthenticated ? <Outlet /> : <Navigate to={path.login} />
 }
 function RejectedRoute() {
-  const { isAuthenticated } = useContext(AppContext)
+  const { isAuthenticated } = useAppContext()
   return !isAuthenticated ? <Outlet /> : <Navigate to={path.home} />
 }
 

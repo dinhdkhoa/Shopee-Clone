@@ -1,6 +1,5 @@
 import Popover from '../Popover'
-import { useContext } from 'react'
-import { AppContext } from 'src/context/app.context'
+import { useAppContext } from 'src/context/app.context'
 import Button from '../Button'
 import { path } from 'src/constant/path'
 import { Link } from 'react-router-dom'
@@ -10,8 +9,7 @@ import { purchasesStatus } from 'src/constant/purchaseStatus'
 
 export default function NavHeader() {
   const queryClient = useQueryClient()
-  const { isAuthenticated, setIsAuthenticated, profile, setProfile } = useContext(AppContext)
-
+  const { isAuthenticated, setIsAuthenticated, profile, setProfile } = useAppContext()
   const logoutMutation = useMutation({
     mutationFn: () => authApi.logout(),
     onSuccess: () => {
@@ -88,12 +86,15 @@ export default function NavHeader() {
         >
           <div className='mr-2 h-6 w-6 flex-shrink-0'>
             <img
-              src='https://ae01.alicdn.com/kf/Sbffd92d5995944e98d13472e313fdf77G/WK-KBDfans-Tofu60-2-0-WK-layout-Hot-swap-Mechanical-Keyboard-Kit.jpg_50x50.jpg_.webp'
+              src={
+                profile?.avatar ||
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA83Aa64pQYUL2GNSPYANXnMXqhGTGM4_G6y8xATpHxNa4e9zuv4cYAOJstnU_3EMAykM&usqp=CAU'
+              }
               alt='avatar'
               className='h-full w-full rounded-full object-cover'
             />
           </div>
-          <div>{profile?.email}</div>
+          <div>{profile?.name || profile?.email}</div>
         </Popover>
       )}
       {!isAuthenticated && (

@@ -2,7 +2,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { produce } from 'immer'
 import { keyBy } from 'lodash'
 import noproduct from 'src/assets/images/no-product.png'
-import { useContext, useEffect, useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import purchasesApi from 'src/apis/purchase.api'
 import Button from 'src/components/Button'
@@ -12,10 +12,10 @@ import { purchasesStatus } from 'src/constant/purchaseStatus'
 import { Purchase } from 'src/types/purchase.types'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { toast } from 'react-toastify'
-import { AppContext } from 'src/context/app.context'
+import { useAppContext } from 'src/context/app.context'
 
 export default function Cart() {
-  const { extendedPurchases, setExtendedPurchases } = useContext(AppContext)
+  const { extendedPurchases, setExtendedPurchases } = useAppContext()
 
   const location = useLocation()
   const purchaseIdFromLocation = (location.state as { purchaseId: string } | null)?.purchaseId
@@ -37,8 +37,7 @@ export default function Cart() {
     onSuccess: () => {
       refetch()
       toast.success('Mua hàng thành công', {
-        position: 'top-center',
-        autoClose: 1500
+        position: 'top-center'
       })
     }
   })

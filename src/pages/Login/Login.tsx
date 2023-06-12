@@ -1,14 +1,12 @@
 import { Link } from 'react-router-dom'
 import { Schema, schema } from 'src/utils/rules'
-
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import isAxiosUnprocessableError from 'src/utils/utils'
 import { ErrorResponse } from 'src/types/utils.type'
 import { useMutation } from '@tanstack/react-query'
 import Input from 'src/components/Input'
-import { useContext } from 'react'
-import { AppContext } from 'src/context/app.context'
+import { useAppContext } from 'src/context/app.context'
 import Button from 'src/components/Button'
 import { path } from 'src/constant/path'
 import authApi from 'src/apis/auth.api'
@@ -27,7 +25,7 @@ export default function Login() {
     resolver: yupResolver(loginSchema)
   })
 
-  const { setIsAuthenticated, setProfile } = useContext(AppContext)
+  const { setIsAuthenticated, setProfile } = useAppContext()
 
   const loginMutation = useMutation({
     mutationFn: (body: FormData) => authApi.login(body)

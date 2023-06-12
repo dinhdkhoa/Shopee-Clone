@@ -6,3 +6,5 @@ export type AuthResponse = SuccessResponse<{
   expires: string
   user: User
 }>
+
+export type UserResponse = SuccessResponse<User>

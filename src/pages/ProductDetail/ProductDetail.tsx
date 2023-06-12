@@ -105,7 +105,7 @@ export default function ProductDetail() {
       {
         onSuccess: (data) => {
           queryClient.invalidateQueries({ queryKey: ['purchases', { status: purchasesStatus.inCart }] })
-          toast.success(data.data.message, { autoClose: 1500 })
+          toast.success(data.data.message)
         }
       }
     )
