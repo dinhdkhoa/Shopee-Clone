@@ -102,7 +102,7 @@ export default function Register() {
                   type='submit'
                   className='flex  w-full items-center justify-center bg-red-500 px-2 py-4 text-sm uppercase text-white hover:bg-red-600'
                 >
-                  Đăng Nhập
+                  Đăng Ký
                 </Button>
               </div>
               <div className='mt-8 flex items-center justify-center'>

@@ -53,6 +53,17 @@ function testPriceMinMax(this: yup.TestContext<yup.AnyObject>) {
   return price_min !== '' || price_max !== ''
 }
 
+const handlePasswordYup = (message: string, yupRef?: string) => {
+  return yupRef
+    ? yup
+        .string()
+        .required('Bắt buộc nhập lại password')
+        .min(6, 'Độ dài từ 6-160 kí tự')
+        .max(160, 'Độ dài từ 6-160 kí tự')
+        .oneOf([yup.ref(yupRef)], 'Nhập lại password không khớp')
+    : yup.string().required(message).min(6, 'Độ dài từ 6-160 kí tự').max(160, 'Độ dài từ 6-160 kí tự')
+}
+
 export const schema = yup.object({
   email: yup
     .string()
@@ -60,17 +71,8 @@ export const schema = yup.object({
     .email('Email không đúng định dạng')
     .min(5, 'Độ dài từ 5-160 kí tự')
     .max(160, 'Độ dài từ 5-160 kí tự'),
-  password: yup
-    .string()
-    .required('Bắt buộc nhập Email')
-    .min(6, 'Độ dài từ 6-160 kí tự')
-    .max(160, 'Độ dài từ 6-160 kí tự'),
-  confirm_password: yup
-    .string()
-    .required('Bắt buộc nhập Email')
-    .min(6, 'Độ dài từ 6-160 kí tự')
-    .max(160, 'Độ dài từ 6-160 kí tự')
-    .oneOf([yup.ref('password')], 'Nhập lại password không khớp'),
+  password: handlePasswordYup('Bắt buộc nhập password'),
+  confirm_password: handlePasswordYup('Bắt buộc nhập lại password', 'password'),
   price_min: yup.string().test({
     name: 'price-not-allowed',
     message: 'Giá không phù hợp',
@@ -90,9 +92,9 @@ export const userSchema = yup.object({
   phone: yup.string().max(20, 'Độ dài tối đa 20 kí tự'),
   date_of_birth: yup.date().max(new Date(), 'Ngày không hợp lệ'),
   avatar: yup.string().max(1000, 'Độ dài tối đa 1000 kí tự'),
-  password: schema.fields['password'],
-  new_password: schema.fields['password'],
-  confirm_password: schema.fields['confirm_password']
+  password: handlePasswordYup('Bắt buộc nhập password'),
+  new_password: handlePasswordYup('Bắt buộc nhập password mới'),
+  confirm_password: handlePasswordYup('Bắt buộc nhập lại password mới', 'new_password')
 })
 
 export type UserSchema = yup.InferType<typeof userSchema>

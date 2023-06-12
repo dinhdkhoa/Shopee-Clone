@@ -5,7 +5,7 @@ import { UserSchema, userSchema } from 'src/utils/rules'
 import { yupResolver } from '@hookform/resolvers/yup'
 import userApi from 'src/apis/user.api'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import InputNumber from 'src/components/InputNumber'
 import DateSelect from '../../components/DateSelect'
 import { toast } from 'react-toastify'
@@ -13,8 +13,8 @@ import { useAppContext } from 'src/context/app.context'
 import { saveProfiletoLS } from 'src/utils/auth'
 import isAxiosUnprocessableError, { getAvatarURL } from 'src/utils/utils'
 import { ErrorResponse } from 'src/types/utils.type'
+import UploadImage from 'src/components/UploadImage'
 
-const IMAGE_MAX_SIZE = 1048576
 type FormData = Pick<UserSchema, 'name' | 'address' | 'phone' | 'date_of_birth' | 'avatar'>
 type FormDataError = Omit<FormData, 'date_of_birth'> & {
   date_of_birth: string
@@ -24,7 +24,6 @@ const profileSchema = userSchema.pick(['name', 'address', 'phone', 'date_of_birt
 export default function Profile() {
   const { setProfile } = useAppContext()
   const [file, setFile] = useState<File>()
-  const avatarInputRef = useRef<HTMLInputElement>(null)
   let isAvatarUploaded = false
   const previewImg = useMemo(() => {
     if (file) {
@@ -45,7 +44,6 @@ export default function Profile() {
 
   const {
     register,
-    reset,
     control,
     handleSubmit,
     setError,
@@ -89,7 +87,6 @@ export default function Profile() {
             setProfile(data.data.data)
             saveProfiletoLS(data.data.data)
             setFile(undefined)
-            reset()
             toast.success(data.data.message)
           }
         }
@@ -109,17 +106,8 @@ export default function Profile() {
     }
   })
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const fileFromEvent = event.target.files?.[0]
-    if (fileFromEvent && (fileFromEvent.size >= IMAGE_MAX_SIZE || fileFromEvent.type.includes('image'))) {
-      toast.warning('Dung lượng file tối đa 1 MB - Định dạng:.JPEG, .PNG')
-    } else {
-      setFile(fileFromEvent)
-    }
-  }
-
-  const handleUpload = () => {
-    avatarInputRef.current?.click()
+  const uploadImage = (file?: File) => {
+    setFile(file)
   }
 
   return (
@@ -211,25 +199,10 @@ export default function Profile() {
                 className='h-full w-full rounded-full object-cover'
               />
             </div>
-            <input
-              className='hidden'
-              type='file'
-              accept='.jpg,.jpeg,.png'
-              ref={avatarInputRef}
-              onChange={handleFileChange}
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              onClick={(e) => ((e.target as any).value = null)}
-            />
-            <button
-              type='button'
-              onClick={handleUpload}
-              className='flex h-10 items-center justify-end rounded-sm border bg-white px-6 text-sm text-gray-600 shadow-sm'
-            >
-              Chọn ảnh
-            </button>
+            <UploadImage onChange={uploadImage} />
             <div className='mt-3 text-gray-400'>
               <div>Dụng lượng file tối đa 1 MB</div>
-              <div>Định dạng:.JPEG, .PNG</div>
+              <div>Định dạng:.JPEG, .PNG</div>U
             </div>
           </div>
         </div>
