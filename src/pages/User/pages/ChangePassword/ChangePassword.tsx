@@ -7,7 +7,7 @@ import { UserSchema, userSchema } from 'src/utils/rules'
 import isAxiosUnprocessableError from 'src/utils/utils'
 import { toast } from 'react-toastify'
 import { useMutation } from '@tanstack/react-query'
-import { omit } from 'lodash'
+import omit from 'lodash/omit'
 import userApi from 'src/apis/user.api'
 
 type FormData = Pick<UserSchema, 'confirm_password' | 'new_password' | 'password'>

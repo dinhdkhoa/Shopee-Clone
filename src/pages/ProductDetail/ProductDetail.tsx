@@ -26,7 +26,12 @@ export default function ProductDetail() {
 
   const { data } = useQuery({
     queryKey: ['product', id],
-    queryFn: () => productApi.getProductDetailed(id as string)
+    queryFn: () => productApi.getProductDetailed(id as string),
+    onError: () => {
+      navigate({
+        pathname: '*'
+      })
+    }
   })
   const product = data?.data.data
 

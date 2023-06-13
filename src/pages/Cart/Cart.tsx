@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { produce } from 'immer'
-import { keyBy } from 'lodash'
+import keyBy from 'lodash/keyBy'
 import noproduct from 'src/assets/images/no-product.png'
 import { useEffect, useMemo } from 'react'
 import { Link, useLocation } from 'react-router-dom'
