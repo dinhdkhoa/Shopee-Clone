@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import classNames from 'classnames'
+import { Helmet } from 'react-helmet-async'
 import { Link, createSearchParams } from 'react-router-dom'
 import purchasesApi from 'src/apis/purchase.api'
 import { path } from 'src/constant/path'
@@ -21,7 +22,7 @@ export default function OrderHistory() {
   const queryConfig: { status?: string } = useQueryParams()
   const queryStatus = queryConfig.status || purchasesStatus.all
 
-  const { data: purchasesInCartData, refetch } = useQuery({
+  const { data: purchasesInCartData } = useQuery({
     queryKey: ['purchases', { queryStatus }],
     queryFn: () => purchasesApi.getPurchases({ status: queryStatus as PurchaseListStatus })
   })
@@ -47,6 +48,10 @@ export default function OrderHistory() {
 
   return (
     <div>
+      <Helmet>
+        <title> Đơn Mua | Shopee Clone</title>
+        <meta name='description' content='Trang Đơn Mua Shopee' />
+      </Helmet>
       <div className='overflow-x-auto'>
         <div className='min-w-[700px]'>
           <div className='sticky top-0 flex rounded-t-sm shadow-sm'>{purchaseTabLink}</div>

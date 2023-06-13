@@ -9,12 +9,15 @@ import { ErrorResponse } from 'src/types/utils.type'
 import Button from 'src/components/Button'
 import { path } from 'src/constant/path'
 import authApi from 'src/apis/auth.api'
+import { useTranslation } from 'react-i18next'
+import { Helmet } from 'react-helmet-async'
 
 type FormData = Pick<Schema, 'email' | 'password' | 'confirm_password'>
 
 const registerSchema = schema.pick(['email', 'password', 'confirm_password'])
 
 export default function Register() {
+  const { t } = useTranslation('header')
   const {
     register,
     handleSubmit,
@@ -59,11 +62,15 @@ export default function Register() {
 
   return (
     <div className='bg-orange bg-cover bg-center bg-no-repeat '>
+      <Helmet>
+        <title>{t('register')} | Shopee Clone</title>
+        <meta name='description' content='Đăng nhập giỏ hàng Shopee' />
+      </Helmet>
       <div className='container'>
         <div className='grid grid-cols-1 py-12 lg:grid-cols-5 lg:py-32 lg:pr-10'>
           <div className='lg:col-span-2 lg:col-start-4'>
             <form className='rounded bg-white p-10 shadow-sm' noValidate onSubmit={onSubmit}>
-              <div className='text-2xl'>Đăng Ký</div>
+              <div className='text-2xl'>{t('register')}</div>
               <Input
                 placeholder='Email'
                 register={register}
@@ -104,13 +111,13 @@ export default function Register() {
                   type='submit'
                   className='flex  w-full items-center justify-center bg-red-500 px-2 py-4 text-sm uppercase text-white hover:bg-red-600'
                 >
-                  Đăng Ký
+                  {t('register')}
                 </Button>
               </div>
               <div className='mt-8 flex items-center justify-center'>
-                <span className='text-gray-400'>Bạn đã có tài khoản?</span>
+                <span className='text-gray-400'>{t('haveAccount')}</span>
                 <Link className='ml-1 text-red-400' to={path.login}>
-                  Đăng Nhập
+                  {t('login')}
                 </Link>
               </div>
             </form>

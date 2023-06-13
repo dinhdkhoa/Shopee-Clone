@@ -14,6 +14,8 @@ import { saveProfiletoLS } from 'src/utils/auth'
 import isAxiosUnprocessableError, { getAvatarURL } from 'src/utils/utils'
 import { ErrorResponse } from 'src/types/utils.type'
 import UploadImage from 'src/components/UploadImage'
+import { Helmet } from 'react-helmet-async'
+// import { useTranslation } from 'react-i18next'
 
 type FormData = Pick<UserSchema, 'name' | 'address' | 'phone' | 'date_of_birth' | 'avatar'>
 type FormDataError = Omit<FormData, 'date_of_birth'> & {
@@ -22,6 +24,7 @@ type FormDataError = Omit<FormData, 'date_of_birth'> & {
 const profileSchema = userSchema.pick(['name', 'address', 'phone', 'date_of_birth', 'avatar'])
 
 export default function Profile() {
+  // const { t } = useTranslation()
   const { setProfile } = useAppContext()
   const [file, setFile] = useState<File>()
   let isAvatarUploaded = false
@@ -112,6 +115,10 @@ export default function Profile() {
 
   return (
     <div className='rounded-sm bg-white px-2 pb-10 shadow md:px-7 md:pb-20'>
+      <Helmet>
+        <title> Thông tin người dùng | Shopee Clone</title>
+        <meta name='description' content='Trang thông tin người dùng Shopee' />
+      </Helmet>
       <div className='border-b border-b-gray-200 py-6'>
         <h1 className='text-lg font-medium capitalize text-gray-900'>Hồ Sơ Của Tôi</h1>
         <div className='mt-1 text-sm text-gray-700'>Quản lý thông tin hồ sơ để bảo mật tài khoản</div>

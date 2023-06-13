@@ -1,6 +1,8 @@
+import { useTranslation } from 'react-i18next'
 import { Link, useMatch } from 'react-router-dom'
 
 export default function RegisterHeader() {
+  const { t } = useTranslation('header')
   const registerMatch = Boolean(useMatch('/register'))
 
   return (
@@ -16,7 +18,7 @@ export default function RegisterHeader() {
           </Link>
 
           <div className='mr-20 rounded-md px-2 py-1 text-lg text-orange transition duration-200 lg:text-xl '>
-            {registerMatch ? 'Đăng Ký' : 'Đăng Nhập'}
+            {registerMatch ? `${t('register')}` : `${t('login')}`}
           </div>
         </nav>
       </div>

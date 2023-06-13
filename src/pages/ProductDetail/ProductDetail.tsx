@@ -13,6 +13,7 @@ import { purchasesStatus } from 'src/constant/purchaseStatus'
 import { toast } from 'react-toastify'
 import { path } from 'src/constant/path'
 import { useTranslation } from 'react-i18next'
+import { Helmet } from 'react-helmet-async'
 
 export default function ProductDetail() {
   const { t } = useTranslation('product')
@@ -129,6 +130,10 @@ export default function ProductDetail() {
   if (!product) return null
   return (
     <div className='bg-gray-200 py-6'>
+      <Helmet>
+        <title> {product.name} | Shopee Clone</title>
+        <meta name='description' content={`Trang thông sản phẩm ${product.name} Shopee`} />
+      </Helmet>
       <div className='container'>
         <div className='bg-white p-4 shadow'>
           <div className='grid grid-cols-12 gap-9'>

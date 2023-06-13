@@ -14,6 +14,7 @@ import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { toast } from 'react-toastify'
 import { useAppContext } from 'src/context/app.context'
 import { useTranslation } from 'react-i18next'
+import { Helmet } from 'react-helmet-async'
 
 export default function Cart() {
   const { t } = useTranslation('product')
@@ -150,6 +151,10 @@ export default function Cart() {
 
   return (
     <div className='bg-neutral-100 py-16'>
+      <Helmet>
+        <title> {t('cart')} | Shopee Clone</title>
+        <meta name='description' content='Trang giỏ hàng Shopee' />
+      </Helmet>
       <div className='container'>
         {purchasesInCart && purchasesInCart.length > 0 ? (
           <>
