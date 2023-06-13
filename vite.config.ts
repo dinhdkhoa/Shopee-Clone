@@ -5,7 +5,7 @@ import visualizer from 'rollup-plugin-visualizer'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), visualizer()],
+  plugins: [react()],
   server: {
     port: 3000
   },
