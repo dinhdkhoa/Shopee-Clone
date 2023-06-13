@@ -1,0 +1,25 @@
+{
+  "aside filter": {
+    "all categories": "All Categories",
+    "filter": "Filter",
+    "Áo thun": "Shirt",
+    "Đồng hồ": "Watch",
+    "Điện thoại": "Phone",
+    "priceRange": "Price Range",
+    "from": "From",
+    "to": "To",
+    "apply": "Apply",
+    "rating": "Rating",
+    "up": "and Up",
+    "deleteAll": "Delete All"
+  },
+  "sort": {
+    "sortBy": "Sort by",
+    "popular": "Popular",
+    "sold": "Top Sales",
+    "latest": "Latest",
+    "price": "Price",
+    "lowToHigh": "Low to high",
+    "highToLow": "High to low"
+  }
+}

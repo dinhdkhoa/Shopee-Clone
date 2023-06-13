@@ -1,0 +1,25 @@
+{
+  "aside filter": {
+    "all categories": "Tất cả danh mục",
+    "filter": "Bộ lọc tìm kiếm",
+    "Áo thun": "Áo thun",
+    "Đồng hồ": "Đồng hồ",
+    "Điện thoại": "Điện thoại",
+    "priceRange": "Khoảng giá",
+    "from": "Từ",
+    "to": "Đến",
+    "apply": "Áp dụng",
+    "rating": "Đánh giá",
+    "up": "Trở lên",
+    "deleteAll": "Xóa tất cả"
+  },
+  "sort": {
+    "sortBy": "Sắp xếp theo",
+    "popular": "Phổ biến",
+    "sold": "Bán chạy",
+    "latest": "Mới nhất",
+    "price": "Giá",
+    "lowToHigh": "Từ thấp đến cao",
+    "highToLow": "Từ cao đến thấp"
+  }
+}

@@ -11,7 +11,7 @@ import { NoUndefinedField } from 'src/types/utils.type'
 import RatingStars from '../RatingStars'
 import omit from 'lodash/omit'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
-
+import { useTranslation } from 'react-i18next'
 interface Props {
   queryConfig: QueryConfig
   categories: CategoryType[]
@@ -22,6 +22,7 @@ type FormData = NoUndefinedField<Pick<Schema, 'price_max' | 'price_min'>>
 const priceSchema = schema.pick(['price_max', 'price_min'])
 
 export default function AsideFilter({ categories, queryConfig }: Props) {
+  const { t } = useTranslation('home')
   const category = queryConfig.category
   const navigate = useNavigate()
   const {
@@ -79,12 +80,13 @@ export default function AsideFilter({ categories, queryConfig }: Props) {
             </g>
           </g>
         </svg>
-        Tất cả danh mục
+        {t('aside filter.all categories')}
       </Link>
       <div className='my-4 h-[1px] bg-gray-300'></div>
       <ul>
         {categories.map((categoryItem) => {
           const isActive = category === categoryItem._id
+          const tKey = `aside filter.${categoryItem.name}`
           return (
             <li className='py-2 pl-2' key={categoryItem._id}>
               <Link
@@ -104,7 +106,7 @@ export default function AsideFilter({ categories, queryConfig }: Props) {
                     <polygon points='4 3.5 0 0 0 7' />
                   </svg>
                 )}
-                {categoryItem.name}
+                {t(tKey as any)}
               </Link>
             </li>
           )
@@ -128,11 +130,12 @@ export default function AsideFilter({ categories, queryConfig }: Props) {
             />
           </g>
         </svg>
-        Bộ lọc tìm kiếm
+        {t('aside filter.filter')}
       </Link>
       <div className='my-4 h-[1px] bg-gray-300'></div>
       <div className='my-5'>
-        <div>Khoản giá</div>
+        {t('aside filter.priceRange')}
+        <div></div>
         <form className='mt-2' onSubmit={onSubmit}>
           <div className='flex items-center'>
             <Controller
@@ -144,13 +147,13 @@ export default function AsideFilter({ categories, queryConfig }: Props) {
                   type='text'
                   className='row'
                   classNameError='hidden'
-                  placeholder='₫ TỪ'
+                  placeholder={'₫ ' + t('aside filter.from')}
                   onChange={(event) => {
                     field.onChange(event)
                     trigger('price_max')
                   }}
                   value={field.value}
-                  classNameInput='p-1 w-full rounded-sm border border-gray-300 p-3 outline-none focus:border-gray-500 focus:shadow-sm'
+                  classNameInput='p-1 w-full rounded-sm border border-gray-300  outline-none focus:border-gray-500 focus:shadow-sm'
                 />
               )}
             />
@@ -164,20 +167,20 @@ export default function AsideFilter({ categories, queryConfig }: Props) {
                   classNameError='hidden'
                   type='text'
                   className='row'
-                  placeholder='₫ ĐẾN'
+                  placeholder={'₫ ' + t('aside filter.to')}
                   onChange={(event) => {
                     field.onChange(event)
                     trigger('price_min')
                   }}
                   value={field.value}
-                  classNameInput='p-1 w-full rounded-sm border border-gray-300 p-3 outline-none focus:border-gray-500 focus:shadow-sm'
+                  classNameInput='p-1 w-full rounded-sm border border-gray-300  outline-none focus:border-gray-500 focus:shadow-sm'
                 />
               )}
             />
           </div>
           <div className='mt-1 min-h-[1.25rem] text-center text-sm text-red-600'>{errors.price_min?.message}</div>
           <Button className='flex w-full items-center justify-center bg-orange p-2 text-sm uppercase text-white hover:bg-orange/80'>
-            Áp dụng
+            {t('aside filter.apply')}
           </Button>
         </form>
       </div>
@@ -189,7 +192,7 @@ export default function AsideFilter({ categories, queryConfig }: Props) {
         onClick={removeAllFilter}
         className='flex w-full items-center justify-center bg-orange p-2 text-sm uppercase text-white hover:bg-orange/80'
       >
-        Xóa tất cả
+        {t('aside filter.deleteAll')}
       </Button>
     </div>
   )

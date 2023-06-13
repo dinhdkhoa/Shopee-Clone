@@ -9,10 +9,12 @@ import { useQuery } from '@tanstack/react-query'
 import { useAppContext } from 'src/context/app.context'
 import NavHeader from '../NavHeader'
 import useSearchProducts from 'src/hooks/useSearchProducts'
+import { useTranslation } from 'react-i18next'
 
 const MAX_PRODUCTS_IN_CART = 5
 
 export default function Header() {
+  const { t } = useTranslation('header')
   const { isAuthenticated } = useAppContext()
   const { register, onSearch } = useSearchProducts()
 
@@ -70,7 +72,7 @@ export default function Header() {
                 <div>
                   {purchasesInCart && purchasesInCart.length > 0 ? (
                     <div className='p-2'>
-                      <div className='txt-gray-400 capitalize'>Sản phẩm mới thêm</div>
+                      <div className='txt-gray-400 capitalize'>{t('newAdd')}</div>
                       <div className='mt-5'>
                         {purchasesInCart.slice(0, MAX_PRODUCTS_IN_CART).map((purchase) => (
                           <div className='mt-4 flex py-2 hover:bg-gray-100' key={purchase._id}>
@@ -95,20 +97,20 @@ export default function Header() {
                           {purchasesInCart.length > MAX_PRODUCTS_IN_CART
                             ? purchasesInCart.length - MAX_PRODUCTS_IN_CART
                             : ''}{' '}
-                          Thêm hàng vào giỏ
+                          {t('addToCart')}
                         </div>
                         <Link
                           to={path.cart}
                           className='rounded-sm bg-orange px-4 py-2 capitalize text-white hover:bg-opacity-90'
                         >
-                          Xem giỏ hàng
+                          {t('goToCart')}
                         </Link>
                       </div>
                     </div>
                   ) : (
                     <div className='flex h-[300px] w-[300px] flex-col items-center justify-center p-2'>
                       <img src={noproduct} alt='no purchase' className='h-24 w-24' />
-                      <div className='mt-3 capitalize'>Chưa có sản phẩm</div>
+                      <div className='mt-3 capitalize'>{t('noOrder')}</div>
                     </div>
                   )}
                 </div>
