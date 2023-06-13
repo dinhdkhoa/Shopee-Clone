@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { Purchase } from 'src/types/purchase.types'
 import { User } from 'src/types/user.types'
-import { getProfileFromLS, getTokenFromLS } from 'src/utils/auth'
+import { getProfileFromLS, getAccessTokenFromLS } from 'src/utils/auth'
 
 interface ExtendedPurchase extends Purchase {
   checked: boolean
@@ -18,7 +18,7 @@ interface AppContext {
 }
 
 const initialAppContext: AppContext = {
-  isAuthenticated: Boolean(getTokenFromLS()),
+  isAuthenticated: Boolean(getAccessTokenFromLS()),
   setIsAuthenticated: () => null,
   profile: getProfileFromLS(),
   setProfile: () => null,

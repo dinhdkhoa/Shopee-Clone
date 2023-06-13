@@ -34,7 +34,7 @@ export default function Input({
   }
   const registerResult = register && name ? register(name, rules) : {} // đảm bảo ts vì nếu rỗng thì trả về object rỗng hooặc null
   return (
-    <div className={className}>
+    <div className={'relative ' + className}>
       <input
         className={classNameInput}
         {...rest}
