@@ -14,8 +14,10 @@ import { toast } from 'react-toastify'
 import { path } from 'src/constant/path'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
+import { useAppContext } from 'src/context/app.context'
 
 export default function ProductDetail() {
+  const { isAuthenticated } = useAppContext()
   const { t } = useTranslation('product')
   const { nameId } = useParams()
   const imageRef = useRef<HTMLImageElement>(null)
@@ -108,6 +110,11 @@ export default function ProductDetail() {
   }
 
   const addToCart = () => {
+    if (!isAuthenticated) {
+      toast.info('Hãy đăng nhập trước!')
+      setTimeout(() => navigate(path.login), 2000)
+      return
+    }
     addToCartMutation.mutate(
       { buy_count: buyCount, product_id: product?._id as string },
       {
@@ -120,6 +127,11 @@ export default function ProductDetail() {
   }
 
   const buyNow = async () => {
+    if (!isAuthenticated) {
+      toast.info('Hãy đăng nhập trước!')
+      setTimeout(() => navigate(path.login), 2000)
+      return
+    }
     const res = await addToCartMutation.mutateAsync({ buy_count: buyCount, product_id: product?._id as string })
     const purchase = res.data.data
     navigate(path.cart, {

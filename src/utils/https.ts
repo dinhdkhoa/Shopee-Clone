@@ -19,7 +19,7 @@ import { ErrorResponse } from 'src/types/utils.type'
 //   headers: { 'Content-Type': 'application/json' }
 // })
 
-class Http {
+export class Http {
   instance: AxiosInstance
   private accessToken: string
   private refreshToken: string
