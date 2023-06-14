@@ -8,10 +8,8 @@ import {
   saveRefreshTokentoLS
 } from './auth'
 import { toast } from 'react-toastify'
-import { path } from 'src/constant/path'
 import { AuthResponse } from 'src/types/auth.types'
-import authApi, { authURL } from 'src/apis/auth.api'
-import { error } from 'console'
+import { authURL } from 'src/apis/auth.api'
 import { isAxiosExpiredTokenError, isAxiosUnauthorizedError } from './utils'
 import { ErrorResponse } from 'src/types/utils.type'
 

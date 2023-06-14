@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useState } from 'react'
 import { Purchase } from 'src/types/purchase.types'
 import { User } from 'src/types/user.types'
 import { getProfileFromLS, getAccessTokenFromLS } from 'src/utils/auth'
