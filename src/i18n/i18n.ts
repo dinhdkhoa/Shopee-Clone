@@ -29,7 +29,7 @@ export const defaultNS = 'home'
 
 i18n.use(initReactI18next).init({
   resources,
-  lng: 'vi',
+  lng: 'en',
   fallbackLng: 'vi',
   ns: ['home', 'product', 'header'],
   interpolation: {

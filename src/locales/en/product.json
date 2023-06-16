@@ -17,11 +17,12 @@
   "checkOut": "Check Out",
   "total": "Total",
   "Tất cả": "Total",
-  "Chờ xác nhận": "To confirm",
-  "Chờ thanh toán": "To pay",
-  "Đang giao": "To receive",
+  "Chờ xác nhận": "Confirmed",
+  "Chờ thanh toán": "Waiting for payment",
+  "Đang giao": "Being Delivered",
   "Hoàn thành": "Completed",
   "Đã hủy": "Cancelled",
   "noPurchase": "No item in cart",
-  "addToCart": "Add to cart"
+  "addToCart": "Add to cart",
+  "bought": "Item Ordered"
 }

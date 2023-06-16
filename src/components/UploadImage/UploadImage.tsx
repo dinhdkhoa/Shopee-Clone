@@ -38,7 +38,7 @@ export default function UploadImage({ onChange }: Props) {
         onClick={handleUpload}
         className='flex h-10 items-center justify-end rounded-sm border bg-white px-6 text-sm text-gray-600 shadow-sm'
       >
-        Chọn ảnh
+        Choose Image
       </button>
     </>
   )

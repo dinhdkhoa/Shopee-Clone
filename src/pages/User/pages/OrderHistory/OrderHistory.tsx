@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 import classNames from 'classnames'
+import { useMemo } from 'react'
 import { Helmet } from 'react-helmet-async'
+import { useTranslation } from 'react-i18next'
 import { Link, createSearchParams } from 'react-router-dom'
 import purchasesApi from 'src/apis/purchase.api'
 import { path } from 'src/constant/path'
@@ -9,16 +11,16 @@ import useQueryParams from 'src/hooks/useQueryParams'
 import { Purchase, PurchaseListStatus } from 'src/types/purchase.types'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 
-const orderHistoryTab = [
-  { name: 'Tất cả', status: purchasesStatus.all },
-  { name: 'Chờ xác nhận', status: purchasesStatus.waitForConfirmation },
-  { name: 'Chờ lấy hàng', status: purchasesStatus.waitForGetting },
-  { name: 'Đang giao', status: purchasesStatus.inProgress },
-  { name: 'Đã giao', status: purchasesStatus.delivered },
-  { name: 'Đã hủy', status: purchasesStatus.cancelled }
-]
-
 export default function OrderHistory() {
+  const { t } = useTranslation('product')
+  const orderHistoryTab = [
+    { name: t('Tất cả'), status: purchasesStatus.all },
+    { name: t('Chờ xác nhận'), status: purchasesStatus.waitForConfirmation },
+    { name: t('Đang giao'), status: purchasesStatus.inProgress },
+    { name: t('Hoàn thành'), status: purchasesStatus.delivered },
+    { name: t('Đã hủy'), status: purchasesStatus.cancelled }
+  ]
+
   const queryConfig: { status?: string } = useQueryParams()
   const queryStatus = queryConfig.status || purchasesStatus.all
 
@@ -78,7 +80,7 @@ export default function OrderHistory() {
                 </Link>
                 <div className='flex justify-end'>
                   <div>
-                    <span>Tổng giá tiền</span>
+                    <span>{t('total')}</span>
                     <span className='ml-4 text-xl text-orange'>
                       ₫{formatCurrency(purchase.product.price * purchase.buy_count)}
                     </span>

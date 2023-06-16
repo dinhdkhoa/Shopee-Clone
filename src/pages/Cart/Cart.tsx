@@ -39,7 +39,7 @@ export default function Cart() {
     mutationFn: purchasesApi.buyProducts,
     onSuccess: () => {
       refetch()
-      toast.success('Mua hàng thành công', {
+      toast.success(t('bought'), {
         position: 'top-center'
       })
     }

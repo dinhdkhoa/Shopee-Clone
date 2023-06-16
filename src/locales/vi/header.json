@@ -29,5 +29,7 @@
   "dob": "Ngày sinh",
   "upload": "Chọn ảnh",
   "maxImgSize": "Kích thước file tối đa 1MB",
-  "imgType": "Định dạng: .JPEG,.PNG"
+  "imgType": "Định dạng: .JPEG,.PNG",
+  "userProfile": "Thông tin người dùng",
+  "save": "Lưu"
 }

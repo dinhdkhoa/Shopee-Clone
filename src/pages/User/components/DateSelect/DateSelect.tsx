@@ -5,9 +5,10 @@ interface Props {
   errorMessage?: string
   onChange?: (value: Date) => void
   value: Date
+  lang: string
 }
 
-export default function DateSelect({ value, errorMessage, onChange }: Props) {
+export default function DateSelect({ value, errorMessage, onChange, lang }: Props) {
   const [dob, setDOB] = useState({
     date: value?.getDate() || 1,
     month: value?.getMonth() || 0,
@@ -28,7 +29,7 @@ export default function DateSelect({ value, errorMessage, onChange }: Props) {
 
   return (
     <div className='mt-2 flex flex-col flex-wrap sm:flex-row'>
-      <div className='truncate pt-3 capitalize sm:w-[20%] sm:text-right'>Ngày sinh</div>
+      <div className='truncate pt-3 capitalize sm:w-[20%] sm:text-right'>{lang}</div>
       <div className='sm:w-[80%] sm:pl-5'>
         <div className='flex justify-between'>
           <select

@@ -15,7 +15,7 @@ import isAxiosUnprocessableError, { getAvatarURL } from 'src/utils/utils'
 import { ErrorResponse } from 'src/types/utils.type'
 import UploadImage from 'src/components/UploadImage'
 import { Helmet } from 'react-helmet-async'
-// import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 
 type FormData = Pick<UserSchema, 'name' | 'address' | 'phone' | 'date_of_birth' | 'avatar'>
 type FormDataError = Omit<FormData, 'date_of_birth'> & {
@@ -24,7 +24,7 @@ type FormDataError = Omit<FormData, 'date_of_birth'> & {
 const profileSchema = userSchema.pick(['name', 'address', 'phone', 'date_of_birth', 'avatar'])
 
 export default function Profile() {
-  // const { t } = useTranslation()
+  const { t } = useTranslation('header')
   const { setProfile } = useAppContext()
   const [file, setFile] = useState<File>()
   let isAvatarUploaded = false
@@ -116,12 +116,12 @@ export default function Profile() {
   return (
     <div className='rounded-sm bg-white px-2 pb-10 shadow md:px-7 md:pb-20'>
       <Helmet>
-        <title> Thông tin người dùng | Shopee Clone</title>
+        <title> {t('userProfile')} | Shopee Clone</title>
         <meta name='description' content='Trang thông tin người dùng Shopee' />
       </Helmet>
       <div className='border-b border-b-gray-200 py-6'>
-        <h1 className='text-lg font-medium capitalize text-gray-900'>Hồ Sơ Của Tôi</h1>
-        <div className='mt-1 text-sm text-gray-700'>Quản lý thông tin hồ sơ để bảo mật tài khoản</div>
+        <h1 className='text-lg font-medium capitalize text-gray-900'>{t('myProfile')}</h1>
+        <div className='mt-1 text-sm text-gray-700'>{t('myProfileDesc')}</div>
       </div>
       <form className='mt-8 flex flex-col-reverse md:flex-row md:items-start' onSubmit={onSubmit}>
         <div className='mt-6 flex-grow md:mt-0 md:pr-12'>
@@ -132,19 +132,19 @@ export default function Profile() {
             </div>
           </div>
           <div className='mt-6 flex flex-col flex-wrap sm:flex-row'>
-            <div className='truncate pt-3 capitalize sm:w-[20%] sm:text-right'>Tên</div>
+            <div className='truncate pt-3 capitalize sm:w-[20%] sm:text-right'>{t('name')}</div>
             <div className='sm:w-[80%] sm:pl-5'>
               <Input
                 register={register}
                 name='name'
-                placeholder='Tên'
+                placeholder={t('name')}
                 errorMessage={errors.name?.message}
                 classNameInput='w-full rounded-sm border border-gray-300 px-3 py-2 outline-none focus:border-gray-500 focus:shadow-sm'
               />
             </div>
           </div>
           <div className='mt-2 flex flex-col flex-wrap sm:flex-row'>
-            <div className='truncate pt-3 capitalize sm:w-[20%] sm:text-right'>Số điện thoại</div>
+            <div className='truncate pt-3 capitalize sm:w-[20%] sm:text-right'>{t('phone')}</div>
             <div className='sm:w-[80%] sm:pl-5'>
               <Controller
                 control={control}
@@ -152,7 +152,7 @@ export default function Profile() {
                 render={({ field }) => (
                   <InputNumber
                     classNameInput='w-full rounded-sm border border-gray-300 px-3 py-2 outline-none focus:border-gray-500 focus:shadow-sm'
-                    placeholder='Số điện thoại'
+                    placeholder={t('phone')}
                     errorMessage={errors.phone?.message}
                     {...field}
                     onChange={field.onChange}
@@ -162,12 +162,12 @@ export default function Profile() {
             </div>
           </div>
           <div className='mt-2 flex flex-col flex-wrap sm:flex-row'>
-            <div className='truncate pt-3 capitalize sm:w-[20%] sm:text-right'>Địa chỉ</div>
+            <div className='truncate pt-3 capitalize sm:w-[20%] sm:text-right'>{t('address')}</div>
             <div className='sm:w-[80%] sm:pl-5'>
               <Input
                 register={register}
                 name='address'
-                placeholder='Địa Chỉ'
+                placeholder={t('address')}
                 errorMessage={errors.address?.message}
                 classNameInput='w-full rounded-sm border border-gray-300 px-3 py-2 outline-none focus:border-gray-500 focus:shadow-sm'
               />
@@ -178,6 +178,7 @@ export default function Profile() {
             name='date_of_birth'
             render={({ field }) => (
               <DateSelect
+                lang={t('dob')}
                 value={field.value as Date}
                 onChange={field.onChange}
                 errorMessage={errors.date_of_birth?.message}
@@ -192,7 +193,7 @@ export default function Profile() {
                 className='flex h-9 items-center rounded-sm bg-orange px-5 text-center text-sm text-white hover:bg-orange/80'
                 type='submit'
               >
-                Lưu
+                {t('save')}
               </Button>
             </div>
           </div>
@@ -208,8 +209,8 @@ export default function Profile() {
             </div>
             <UploadImage onChange={uploadImage} />
             <div className='mt-3 text-gray-400'>
-              <div>Dụng lượng file tối đa 1 MB</div>
-              <div>Định dạng:.JPEG, .PNG</div>U
+              <div>{t('maxImgSize')}</div>
+              <div>{t('imgType')}</div>
             </div>
           </div>
         </div>

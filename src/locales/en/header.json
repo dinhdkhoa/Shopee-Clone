@@ -29,5 +29,7 @@
   "dob": "Date Of Birth",
   "upload": "Upload",
   "maxImgSize": "Maximum file size 1MB",
-  "imgType": "Image type: .JPEG,.PNG"
+  "imgType": "Image type: .JPEG,.PNG",
+  "userProfile": "My Account",
+  "save": "Save"
 }

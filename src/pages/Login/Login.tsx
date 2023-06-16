@@ -68,6 +68,9 @@ export default function Login() {
           <div className='lg:col-span-2 lg:col-start-4'>
             <form className='rounded bg-white p-10 shadow-sm' onSubmit={onSubmit} noValidate>
               <div className='text-2xl'>{t('login')}</div>
+              <span className='mt-2 flex text-orange'>
+                Demo Account: user46@gmail.com Password: 123123 or register your own account.
+              </span>
               <Input
                 placeholder='Email'
                 register={register}
