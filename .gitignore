@@ -25,4 +25,5 @@ dist-ssr
 *.sln
 *.sw?
 src/pages/Login/Login.test.tsx
+src/stories/
 
