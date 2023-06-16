@@ -1,5 +1,4 @@
 // import type { RegisterOptions, UseFormGetValues } from 'react-hook-form'
-import { useTranslation } from 'react-i18next'
 import * as yup from 'yup'
 
 // type Rules = { [key in 'email' | 'password' | 'confirm_password']: RegisterOptions }
