@@ -8,6 +8,7 @@ import { ProductListConfig } from 'src/types/product.type'
 import categoryApi from 'src/apis/category.api'
 import useQueryConfig from 'src/hooks/useQueryConfig'
 import { Helmet } from 'react-helmet-async'
+import NotFound from '../NotFound'
 
 export default function ProductList() {
   const queryConfig = useQueryConfig()
@@ -49,6 +50,16 @@ export default function ProductList() {
                     <Product product={product} />
                   </div>
                 ))}
+                {productsData.data.data.products.length === 0 && (
+                  <div className='ml-[320px] flex h-[300px] w-[300px] flex-col items-center justify-center p-2'>
+                    <img
+                      src='https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/a60759ad1dabe909c46a817ecbf71878.png'
+                      alt='no purchase'
+                      className='h-50 w-50'
+                    />
+                    <div className='mt-3 capitalize'>No results found</div>
+                  </div>
+                )}
               </div>
               <Pagination pageSize={productsData.data.data.pagination.page_size} />
             </div>
