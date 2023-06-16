@@ -2,10 +2,10 @@ import { AuthResponse } from 'src/types/auth.types'
 import http from 'src/utils/https'
 
 export const authURL = {
-  register: '/register',
-  login: '/login',
-  logout: '/logout',
-  refreshToken: '/refresh-access-token'
+  register: 'register',
+  login: 'login',
+  logout: 'logout',
+  refreshToken: 'refresh-access-token'
 }
 
 const authApi = {

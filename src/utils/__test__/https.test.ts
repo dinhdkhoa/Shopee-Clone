@@ -10,9 +10,9 @@ describe('http axios', () => {
     http = new Http().instance
   })
   const access_token_1s =
-    'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNmY5MzVlNWZkYzVmMDM3ZTZmNjhkMyIsImVtYWlsIjoiZDNAZ21haWwuY29tIiwicm9sZXMiOlsiVXNlciJdLCJjcmVhdGVkX2F0IjoiMjAyMi0xMi0xNVQxNDowMzoyMy41NzdaIiwiaWF0IjoxNjcxMTEzMDAzLCJleHAiOjE2NzExMTMwMDR9.-gQIpbbKFlRqBlpiiAOBD4puP8jcMtZ2lobXPcy1zmU'
+    'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzAzNDUzMWFmYzJlMWExZjk2N2EwYSIsImVtYWlsIjoidXNlcjQzQGdtYWlsLmNvbSIsInJvbGVzIjpbIlVzZXIiXSwiY3JlYXRlZF9hdCI6IjIwMjMtMDYtMTRUMjM6MzM6MDUuODk4WiIsImlhdCI6MTY4Njc4NTU4NSwiZXhwIjoxNjg2Nzg1NTg2fQ.Tvw2PNrWHMUxdZRujyWDv8qSdAO3t5PHI1kFYRK7UU0'
   const refresh_token_1000days =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNmY5MzVlNWZkYzVmMDM3ZTZmNjhkMyIsImVtYWlsIjoiZDNAZ21haWwuY29tIiwicm9sZXMiOlsiVXNlciJdLCJjcmVhdGVkX2F0IjoiMjAyMi0xMi0xNVQxNDowNTozNS41MTVaIiwiaWF0IjoxNjcxMTEzMTM1LCJleHAiOjE3NTc1MTMxMzV9.OHDBqBjhih1fgNe6-mWo0PQ-IcukNz4ljlXUCxM-8V8'
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzAzNDUzMWFmYzJlMWExZjk2N2EwYSIsImVtYWlsIjoidXNlcjQzQGdtYWlsLmNvbSIsInJvbGVzIjpbIlVzZXIiXSwiY3JlYXRlZF9hdCI6IjIwMjMtMDYtMTRUMjM6MzM6MDUuODk4WiIsImlhdCI6MTY4Njc4NTU4NSwiZXhwIjoxNzczMTg1NTg1fQ.yVcrrleHw24yj4_BEEJgScvzmXmlDBb6eIeVIigKhXk'
   it('Gọi API', async () => {
     // Không nên đụng đến thư mục apis
     // Vì chúng ta test riêng file http thì chỉ "nên" dùng http thôi
@@ -39,5 +39,5 @@ describe('http axios', () => {
     const httpNew = new Http().instance
     const res = await httpNew.get('me')
     expect(res.status).toBe(HttpStatusCode.Ok)
-  })
+  }, 10000)
 })

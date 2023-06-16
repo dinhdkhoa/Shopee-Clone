@@ -2,8 +2,12 @@ import { useEffect } from 'react'
 import useRouteElements from './useRouteElements'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { useAppContext } from './context/app.context'
+import { useAppContext, AppProvider } from './context/app.context'
 import { LocalStorageEventTarget } from './utils/auth'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary.tsx'
+import { HelmetProvider } from 'react-helmet-async'
 
 function App() {
   const { reset } = useAppContext()
@@ -14,11 +18,26 @@ function App() {
     }
   }, [reset])
   const routeElements = useRouteElements()
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false, // default: true,
+        retry: 0
+      }
+    }
+  })
   return (
-    <>
-      {routeElements}
-      <ToastContainer autoClose={1500} />
-    </>
+    <HelmetProvider>
+      <QueryClientProvider client={queryClient}>
+        <AppProvider>
+          <ErrorBoundary>
+            {routeElements}
+            <ToastContainer autoClose={1500} />
+          </ErrorBoundary>
+        </AppProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </HelmetProvider>
   )
 }
 

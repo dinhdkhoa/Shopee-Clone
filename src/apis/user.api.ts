@@ -9,13 +9,13 @@ interface BodyForm extends Omit<User, '_id' | 'roles' | 'email' | 'createdAt' | 
 
 const userApi = {
   getUser: () => {
-    return http.get<SuccessResponse<User>>('/me')
+    return http.get<SuccessResponse<User>>('me')
   },
   updateUser: (body: BodyForm) => {
-    return http.put<SuccessResponse<User>>('/user', body)
+    return http.put<SuccessResponse<User>>('user', body)
   },
   uploadUserAvatar: (body: FormData) => {
-    return http.post<SuccessResponse<string>>('/user/upload-avatar', body, {
+    return http.post<SuccessResponse<string>>('user/upload-avatar', body, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }

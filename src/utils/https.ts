@@ -33,7 +33,7 @@ export class Http {
       timeout: 10000,
       headers: {
         'Content-Type': 'application/json',
-        'expire-access-token': 86400,
+        'expire-access-token': 3600,
         'expire-refresh-token': 864000
       }
     })
@@ -47,6 +47,9 @@ export class Http {
     this.instance.interceptors.response.use(
       (response) => {
         const { url } = response.config
+        if (url === 'me') {
+          console.log(1)
+        }
         if (url === authURL.login) {
           const { data } = response.data as AuthResponse
           this.accessToken = data.access_token
@@ -58,16 +61,11 @@ export class Http {
           clearLocalStorage()
           this.accessToken = ''
           this.refreshToken = ''
-          // } else if (url === '/me' || url === '/user/upload-avatar' || url === '/user' || url === '/user/profile') {
-          //   const { data } = response.data as UserResponse
-          //   console.log('http ', data.name)
-          //   saveProfiletoLS(data)
         }
         return response
       },
       (error: AxiosError) => {
         // if (error.response?.status !== HttpStatusCode.UnprocessableEntity) {
-
         if (
           ![HttpStatusCode.UnprocessableEntity, HttpStatusCode.Unauthorized].includes(error.response?.status as number)
         ) {
@@ -88,7 +86,7 @@ export class Http {
               : this.handleRefreshToken().finally(() => {
                   setTimeout(() => {
                     this.requestRefreshToken = null
-                  }, 300000)
+                  }, 10000)
                 })
             return this.requestRefreshToken.then((access_token) => {
               return this.instance({ ...config, headers: { ...config.headers, authorization: access_token } })
